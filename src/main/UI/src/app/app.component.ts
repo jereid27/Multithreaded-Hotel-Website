@@ -15,6 +15,9 @@ import {map} from "rxjs/operators";
 })
 export class AppComponent implements OnInit{
 
+  //welcomeMessages$: Observable<string>[] = [];
+  //displayPresentation$!: Observable<string>;
+
   constructor(private httpClient:HttpClient){}
 
   private baseURL:string='http://localhost:8080';
@@ -28,7 +31,23 @@ export class AppComponent implements OnInit{
   currentCheckInVal!:string;
   currentCheckOutVal!:string;
 
+  messages: string[] = [];
+
+  getWelcomeMessage():Observable<any> {
+    return this.httpClient.get<string[]>(this.baseURL + '/welcome');
+  }
+
     ngOnInit(){
+
+      //const languages = ['en-CA', 'fr-CA'];
+
+      //this.welcomeMessages$ = languages.map(lang => this.httpClient.get(`${this.baseURL}/welcome?lang=${lang}`, { responseType: 'text' }));
+
+      this.getWelcomeMessage().subscribe((data)=> {
+        console.log(data);
+        this.messages = data});
+
+
       this.roomsearch= new FormGroup({
         checkin: new FormControl(' '),
         checkout: new FormControl(' ')
