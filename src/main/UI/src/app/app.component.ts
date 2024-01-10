@@ -32,9 +32,14 @@ export class AppComponent implements OnInit{
   currentCheckOutVal!:string;
 
   messages: string[] = [];
+  timeZones: string[] = [];
 
   getWelcomeMessage():Observable<any> {
     return this.httpClient.get<string[]>(this.baseURL + '/welcome');
+  }
+
+  getPresentationTime():Observable<any> {
+    return this.httpClient.get<string[]>(this.baseURL + '/presentation');
   }
 
     ngOnInit(){
@@ -46,6 +51,10 @@ export class AppComponent implements OnInit{
       this.getWelcomeMessage().subscribe((data)=> {
         console.log(data);
         this.messages = data});
+
+      this.getPresentationTime().subscribe((data) => {
+        console.log(data);
+        this.timeZones = data});
 
 
       this.roomsearch= new FormGroup({
