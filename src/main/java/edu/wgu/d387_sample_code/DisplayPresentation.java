@@ -9,7 +9,7 @@ import java.util.List;
 
 public class DisplayPresentation {
 
-    public static String[] retrievePresentation() {
+    public static String[] retrievePresentation(LocalDateTime futureDateTime) {
 
         List<String> timeZones = new ArrayList<>();
 
@@ -18,16 +18,16 @@ public class DisplayPresentation {
         ZoneId zUniversal = ZoneId.of("UTC");
 
 
-        ZonedDateTime zonedDateTimeEastern = ZonedDateTime.now(zEastern);
+        ZonedDateTime zonedDateTimeEastern = ZonedDateTime.of(futureDateTime, ZoneId.systemDefault()).withZoneSameInstant(zEastern);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         String formattedEastern = zonedDateTimeEastern.format(formatter);
         timeZones.add(formattedEastern);
 
-        ZonedDateTime zonedDateTimeMountain = ZonedDateTime.now(zMountain);
+        ZonedDateTime zonedDateTimeMountain = ZonedDateTime.of(futureDateTime, ZoneId.systemDefault()).withZoneSameInstant(zMountain);
         String formattedMountain = zonedDateTimeMountain.format(formatter);
         timeZones.add(formattedMountain);
 
-        ZonedDateTime zonedDateTimeUniversal = ZonedDateTime.now(zUniversal);
+        ZonedDateTime zonedDateTimeUniversal = ZonedDateTime.of(futureDateTime,  ZoneId.systemDefault()).withZoneSameInstant(zUniversal);
         String formattedUniversal = zonedDateTimeUniversal.format(formatter);
         timeZones.add(formattedUniversal);
 
